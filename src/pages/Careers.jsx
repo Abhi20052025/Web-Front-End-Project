@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./Careers.css";
 import careerBg from "../assets/images/pic.webp"; // Hero background image
 
 export default function Careers() {
-  // Form state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,36 +12,34 @@ export default function Careers() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(""); // success message
+  const [error, setError] = useState(""); // error message
 
-  // Handle form submit
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
+  setSuccess("");
+  setError("");
 
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/careers`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+  try {
+    // ✅ Remove 'res' because it's unused
+    await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/careers`,
+      formData
+    );
 
-      if (!res.ok) throw new Error("Failed to submit");
-
-      alert("Application submitted successfully!");
-      setFormData({ name: "", email: "", position: "", message: "" });
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    setSuccess("Application submitted successfully!");
+    setFormData({ name: "", email: "", position: "", message: "" });
+  } catch (err) {
+    console.error(err);
+    setError("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
-    <div>
+    <div className="careers-page">
       {/* Hero Section */}
       <section
         className="careers-hero"
@@ -64,19 +62,22 @@ export default function Careers() {
             Platform and Managed Security Services.
           </p>
 
-          <div className="career-actions">
-            <a href="#careers-form" className="career-btn primary">
-              Apply Now
-            </a>
-          </div>
+          <a href="#careers-form" className="career-btn primary">
+            Apply Now
+          </a>
         </div>
       </section>
 
-      {/* Careers Form Section */}
+      {/* Form Section */}
       <section id="careers-form" className="careers-form-section">
-        <h2>Apply for a Position</h2>
+        <h2 className="form-title">Apply for a Position</h2>
+
+        {success && <p className="form-success">{success}</p>}
+        {error && <p className="form-error">{error}</p>}
+
         <form onSubmit={handleSubmit} className="careers-form">
           <input
+            type="text"
             placeholder="Name"
             value={formData.name}
             onChange={(e) =>
@@ -85,8 +86,8 @@ export default function Careers() {
             required
           />
           <input
-            placeholder="Email"
             type="email"
+            placeholder="Email"
             value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
@@ -94,6 +95,7 @@ export default function Careers() {
             required
           />
           <input
+            type="text"
             placeholder="Position"
             value={formData.position}
             onChange={(e) =>

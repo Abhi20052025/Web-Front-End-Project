@@ -1,6 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
 import formBg from "../assets/images/image.webp";
-
 
 export default function Contact() {
   const [hoverSubmit, setHoverSubmit] = useState(false);
@@ -18,10 +18,10 @@ export default function Contact() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -33,34 +33,30 @@ export default function Contact() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/contacts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const response = await axios.post(
+        "https://web-back-end-project-1.onrender.com/api/contacts",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      alert("Form submitted successfully ✅");
+      console.log(response.data);
+
+      // ✅ Reset form after success
+      setFormData({
+        name: "",
+        companyName: "",
+        jobTitle: "",
+        email: "",
+        phone: "",
+        interest: "",
+        message: "",
+        acceptedTerms: false,
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Form submitted successfully ✅");
-        console.log(data);
-
-        // reset form
-        setFormData({
-          name: "",
-          companyName: "",
-          jobTitle: "",
-          email: "",
-          phone: "",
-          interest: "",
-          message: "",
-          acceptedTerms: false,
-        });
-      } else {
-        alert("Submission failed ❌");
-      }
     } catch (error) {
       console.error(error);
       alert("Server error ❌");
@@ -69,11 +65,11 @@ export default function Contact() {
 
   return (
     <div style={contactStyles.page}>
-
       {/* HELP SECTION */}
       <section style={contactStyles.helpSection}>
         <div style={contactStyles.callBox}>
-          Call <strong>1-833-33-CYSEC</strong> <strong>(1-833-33-29732)</strong>
+          Call <strong>1-833-33-CYSEC</strong>{" "}
+          <strong>(1-833-33-29732)</strong>
         </div>
         <p style={contactStyles.helpText}>
           Need help? Experiencing Security or Privacy Incident or a Breach?
@@ -89,7 +85,6 @@ export default function Contact() {
       >
         <div style={contactStyles.overlay}>
           <form style={contactStyles.form} onSubmit={handleSubmit}>
-
             <label style={contactStyles.label}>Name*</label>
             <input
               name="name"
@@ -148,7 +143,10 @@ export default function Contact() {
               </div>
             </div>
 
-            <p style={contactStyles.radioTitle}>I’d like more information on</p>
+            <p style={contactStyles.radioTitle}>
+              I’d like more information on
+            </p>
+
             <div style={contactStyles.radioRow}>
               <label>
                 <input
@@ -211,7 +209,6 @@ export default function Contact() {
             >
               SUBMIT →
             </button>
-
           </form>
         </div>
       </section>
