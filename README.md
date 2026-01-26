@@ -1,7 +1,3 @@
-Absolutely! I can create a **full, professional, GitHub-ready README** for your project, including **links to your GitHub repo** and **your live GitHub Pages site**. Based on the information you’ve shared, here’s a complete version:
-
----
-
 # FortunaCySec Clone
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/Abhi20052025/Web-Front-End-Project)
