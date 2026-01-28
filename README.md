@@ -1,7 +1,7 @@
 # FortunaCySec Clone
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/Abhi20052025/Web-Front-End-Project)
-[![Live Demo](https://img.shields.io/badge/Live%20Site-View-brightgreen)](https://Abhi20052025.github.io/Web-Front-End-Project/)
+[![Live Demo](https://img.shields.io/badge/Live%20Site-View-brightgreen)](https://web-front-e-git-e8b917-abhishek-kumar-pandeys-projects-54cadac7.vercel.app//)
 
 ---
 
@@ -157,7 +157,7 @@ This project is **MIT Licensed**. See [LICENSE](LICENSE) for details.
 **Abhishek Kumar Pandey**
 
 * GitHub: [https://github.com/Abhi20052025](https://github.com/Abhi20052025)
-* Live Site: [https://Abhi20052025.github.io/Web-Front-End-Project/](https://Abhi20052025.github.io/Web-Front-End-Project/)
+* Live Site: [https://Abhi20052025.github.io/Web-Front-End-Project/](https://web-front-e-git-e8b917-abhishek-kumar-pandeys-projects-54cadac7.vercel.app//)
 
 ---
 
